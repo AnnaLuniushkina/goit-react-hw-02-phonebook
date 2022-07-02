@@ -31,12 +31,10 @@ class App extends Component {
   }
 
   addContact = ({name, number}) => {
-    console.log(name);
-    console.log(number);
 
     this.setState(prevState => {
       const { contacts } = prevState;
-      const newContact = contacts.find(contact => contact.name === name);
+      const newContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
 
       if (newContact) {
         alert(`${name} is already in contact`);
