@@ -15,15 +15,12 @@ class App extends Component {
     filter: '',
   }
 
-  contactsId = shortid.generate();
-
   filterChange = event => {
     const { name, value } = event.currentTarget;
     this.setState({ [name]: value });
   }
 
   contactsFilter = name => {
-    // const normalizeFilter = value.toLowerCase();
 
     return this.state.contacts.filter(contact => contact.name.toLowerCase().includes(name.toLowerCase())
     );
@@ -34,8 +31,6 @@ class App extends Component {
       const { contacts } = prevState;
       const newContact = this.state.contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
 
-      // const contacts = prevState.contacts;
-
       if (newContact) {
         alert(`${name} is already in contact`);
         return contacts;
@@ -43,7 +38,7 @@ class App extends Component {
         return {
           contacts: [
             {
-              id: this.contactsId,
+              id: shortid(),
               name,
               number,
             },
@@ -56,11 +51,6 @@ class App extends Component {
   };
 
   onDelete = id => {
-    // this.setState(prevState => {
-    //   const { contacts } = prevState;
-    //   const deleteContacts = contacts.filter(contact => contact.id !== id);
-    //   return { contacts: [...deleteContacts] };
-    // });
     this.setState({
       contacts: this.state.contacts.filter(contact => contact.id !== id),
     });
