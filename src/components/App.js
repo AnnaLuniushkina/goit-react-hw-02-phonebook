@@ -22,19 +22,19 @@ class App extends Component {
     this.setState({ [name]: value });
   }
 
-  contactsFilter = value => {
-    const normalizeFilter = value.toLowerCase();
+  contactsFilter = name => {
+    // const normalizeFilter = value.toLowerCase();
 
-    return this.state.contacts.filter(contact => {
-      return contact.name.toLowerCase().includes(normalizeFilter);
-    })
-  }
+    return this.state.contacts.filter(contact => contact.name.toLowerCase().includes(name.toLowerCase())
+    );
+  };
 
   addContact = ({name, number}) => {
-
     this.setState(prevState => {
       const { contacts } = prevState;
-      const newContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+      const newContact = this.state.contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
+
+      // const contacts = prevState.contacts;
 
       if (newContact) {
         alert(`${name} is already in contact`);
@@ -56,10 +56,13 @@ class App extends Component {
   };
 
   onDelete = id => {
-    this.setState(prevState => {
-      const { contacts } = prevState;
-      const deleteContacts = contacts.filter(contact => contact.id !== id);
-      return { contacts: [...deleteContacts] };
+    // this.setState(prevState => {
+    //   const { contacts } = prevState;
+    //   const deleteContacts = contacts.filter(contact => contact.id !== id);
+    //   return { contacts: [...deleteContacts] };
+    // });
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
     });
   };
 

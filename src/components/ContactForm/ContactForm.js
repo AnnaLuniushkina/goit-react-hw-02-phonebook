@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import shortid from "shortid";
 import styles from './ContactForm.module.css';
 
 class ContactForm extends Component {
@@ -6,6 +8,9 @@ class ContactForm extends Component {
         name: '',
         number: '',
     };
+
+    nameInputId = shortid.generate();
+    numberInputId = shortid.generate();
 
     handleChange = event => {
         const { name, value } = event.currentTarget;
@@ -27,11 +32,13 @@ class ContactForm extends Component {
             <>
                 <form
                     className={styles.contactForm}
-                    action="submit"
                     onSubmit={this.handleSubmit}>
-                    <label className={styles.contactForm__label} >
+                    <label
+                        htmlFor={this.nameInputId}
+                        className={styles.contactForm__label} >
                         Name
                         <input
+                            id={this.nameInputId}
                             className={styles.contactForm__input}
                             value={name}
                             onChange={this.handleChange}
@@ -42,9 +49,12 @@ class ContactForm extends Component {
                             required />
                     </label>
                 
-                    <label className={styles.contactForm__label}>
+                    <label
+                        htmlFor={this.numberInputId}
+                        className={styles.contactForm__label}>
                         Number
                         <input
+                            id={this.numberInputId}
                             className={styles.contactForm__input}
                             value={number}
                             onChange={this.handleChange}
@@ -62,5 +72,7 @@ class ContactForm extends Component {
         );
     };
 };
+
+ContactForm.propTypes = { onSubmit: PropTypes.func.isRequired };
 
 export default ContactForm;
